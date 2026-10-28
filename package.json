@@ -1,0 +1,10 @@
+{
+  "name": "brain",
+  "private": true,
+  "scripts": {
+    "start": "GAMMA_DATA_DIR=.gamma-reader node --env-file-if-exists=.env \"$(command -v npx)\" --yes gamma-reader@latest --name Brain --port 3306"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
