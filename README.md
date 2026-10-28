@@ -35,10 +35,21 @@
 npm start
 ```
 
-打开 <http://127.0.0.1:3306>。首次启动会通过 `npx` 下载 Gamma Reader，不需要先运行 `npm install`。
+打开 <http://127.0.0.1:3306>。默认通过 `npx` 运行发布版 Gamma Reader，不需要先运行 `npm install`。设置 `GAMMA_READER_DIR` 时，改为启动该本地仓库的构建产物；请先在 Gamma Reader 仓库运行 `pnpm build`。
 
 阅读器读取当前工作目录，包括未提交的文章和新文件。编辑本仓库的 Markdown 后，刷新页面即可读取磁盘上的最新内容；页面保持打开时，也会每分钟自动同步一次。
 
 在阅读器中编辑时，文档上的 **Save** 保存到浏览器；文件列表上方的 **Save** 才会写回本地文件。写回不会自动提交或推送。
 
-本地运行数据保存在已忽略的 `.gamma-reader/`。预览文章不需要 API key；需要启用服务端 AI 或联网搜索时，可在未跟踪的 `.env` 中配置标准环境变量，例如 `GLM_API_KEY`、`QWEN_TOKEN_PLAN_CN_API_KEY` 和 `TAVILY_API_KEY`。本地模型支持取决于 `gamma-reader@latest` 的版本。
+本地运行数据保存在已忽略的 `.gamma-reader/`。启动时从当前目录的 `.env` 加载配置；Git worktree 可以通过符号链接共享同一份私有 `.env`。修改配置后重新运行 `npm start`。
+
+| 环境变量 | 用途 |
+| --- | --- |
+| `GAMMA_READER_DIR` | 可选，本地 Gamma Reader 仓库的绝对路径；用于选择与生产一致的构建版本 |
+| `GLM_API_KEY` | GLM-5.3 聊天和 GLM-5.3-Flash 视觉能力 |
+| `QWEN_TOKEN_PLAN_CN_API_KEY` | 阿里云 Token Plan 的 DeepSeek、Qwen 模型 |
+| `TAVILY_API_KEY` | 联网搜索与网页提取 |
+| `GAMMA_DAILY_TOKENS` | 每个网络的每日 Token 额度 |
+| `GAMMA_TOTAL_DAILY_TOKENS` | 本地实例的每日总 Token 额度 |
+
+预览文章不需要 API key。启用的模型列表由所运行的 Gamma Reader 版本决定；密钥和本地运行数据不提交到 Git。本地与生产分别记录用量，Tavily 共用该 key 所属账户的 credits。
