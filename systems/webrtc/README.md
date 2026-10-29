@@ -6,7 +6,7 @@
 
 | 层面 | 回答的问题 | 当前内容 |
 | --- | --- | --- |
-| 标准与协议 | 机制如何定义，为什么这样工作，有哪些约束？ | [ICE：候选与选路](./ice.md) · [NAT 与 STUN：地址的发现](./nat-stun.md) · [TURN：中继的分配与转发](./turn.md) · [DTLS：加密建立与身份锚定](./dtls.md) |
+| 标准与协议 | 机制如何定义，为什么这样工作，有哪些约束？ | [ICE：候选与选路](./ice.md) · [NAT 与 STUN：地址的发现](./nat-stun.md) · [TURN：中继的分配与转发](./turn.md) · [DTLS：加密建立与身份锚定](./dtls.md) · [SCTP 与 DCEP](./sctp.md) |
 | 实现库与示例 | 如何用 Rust 库实现，如何验证？ | — |
 | 应用实践 | 在具体产品中解决什么问题？ | — |
 
@@ -14,6 +14,7 @@
 - [NAT 与 STUN：地址的发现](./nat-stun.md)：NAT 行为的两轴分类、STUN 报文格式与 XOR 编码、STUN 在 ICE 里的两份工作。配套编码 Lab：[stun-xor](./stun-xor.lab.md)。
 - [TURN：中继的分配与转发](./turn.md)：allocation 与 5-tuple、long-term 凭据、权限、Send 指示与 ChannelData 两种转发、传输形态。配套计算 Lab：[turn-relay](./turn-relay.lab.md)。
 - [DTLS：加密建立与身份锚定](./dtls.md)：DTLS 对 TLS 的适配、自签证书与 `a=fingerprint` 信任链、`a=setup` 角色协商、与相邻层的接口。
+- [SCTP 与 DCEP：DataChannel 的传输层](./sctp.md)：关联与流、DataChannel 的流配对、DCEP 开通道、六档可靠性语义、PPID 与 SDP 声明。
 - [资源](./resources.md)：标准与协议、实现库、验证与观测工具、应用案例的入口。
 
 [返回 Brain](../../README.md)。

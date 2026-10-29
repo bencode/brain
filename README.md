@@ -11,6 +11,7 @@
   - [NAT 与 STUN：地址的发现](./systems/webrtc/nat-stun.md)：NAT 行为两轴分类、STUN 报文格式与 XOR 编码。
   - [TURN：中继的分配与转发](./systems/webrtc/turn.md)：allocation 与权限、Send 指示与 ChannelData、传输形态。
   - [DTLS：加密建立与身份锚定](./systems/webrtc/dtls.md)：DTLS 对 UDP 的适配、自签证书与指纹信任链、setup 角色协商。
+  - [SCTP 与 DCEP：DataChannel 的传输层](./systems/webrtc/sctp.md)：SCTP 关联与流、DCEP 开通道、可靠性六档语义、PPID。
   - [资源](./systems/webrtc/resources.md)：标准与协议、实现库、验证与观测工具、应用案例入口。
 
 ## 文件约定

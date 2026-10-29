@@ -79,6 +79,6 @@ a=fingerprint:sha-256 19:E2:1C:3B:4B:9F:81:14:1F:...(每字节两位大写十六
 - DTLS 1.2 与 1.3 的协商与差异细节：RFC 6347、RFC 9147。
 - 连接迁移与连接 ID（CID）：RFC 9146。
 - 基于身份提供者（IdP）的可验证身份断言：RFC 8827。
-- SCTP 关联与流（DataChannel 的下一层）：另行成篇。
+- SCTP 关联与流（DataChannel 的下一层）：[SCTP 与 DCEP：DataChannel 的传输层](./sctp.md)。
 
 [主题入口](./README.md) · [资源页](./resources.md)
