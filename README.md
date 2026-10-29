@@ -6,7 +6,9 @@
 
 ## 内容
 
-- [WebRTC 资源](./systems/webrtc/resources.md)：规范、源码、示例、测试与 API 参考入口。
+- [WebRTC](./systems/webrtc/README.md)：数据面主题入口。
+  - [ICE：候选与选路](./systems/webrtc/ice.md)：候选与收集、优先级公式、连通性检查、提名与 selected pair。
+  - [资源](./systems/webrtc/resources.md)：标准与协议、实现库、验证与观测工具、应用案例入口。
 
 ## 文件约定
 
