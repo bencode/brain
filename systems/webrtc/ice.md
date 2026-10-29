@@ -31,7 +31,7 @@ ICE 假设信令通道已经存在，但不规定它是什么。这是 WebRTC"�
 | `relay` | TURN 服务器为本端分配的中继地址（§5.1.1.2） | 以中继流量为代价，几乎总是可达。 |
 | `prflx` | 检查过程中从对端报文里发现（§5.1.1、§7.3.1.3） | 不是收集来的，是连通性检查（本文 §4）的副产物。 |
 
-收集发生在通信即将开始时（§5.1.1）：枚举接口得 host 候选；向每个配置的 STUN 服务器发 Binding 请求得 srflx 候选；配了 TURN 再得 relay 候选。类型与 base 都相同的候选被丢弃（§5.1.3）。WebRTC 实现通常不等收集完成就开始交换（trickle），候选逐个经信令补发。
+收集发生在通信即将开始时（§5.1.1）：枚举接口得 host 候选；向每个配置的 STUN 服务器发 Binding 请求得 srflx 候选；配了 TURN 再得 relay 候选。类型与 base 都相同的候选被丢弃（§5.1.3）。WebRTC 实现通常不等收集完成就开始交换（trickle，候选逐个经信令补发，RFC 8838）。
 
 **foundation**（§5.1.1.3）：同类型、同 base IP、取自同一 STUN/TURN 服务器的候选共享一个 foundation。它供冻结算法（§6.1.4.3）把"连通性大概率相同"的候选分批检查。
 
@@ -116,7 +116,7 @@ triggered check 保证"你测我"必然引发"我测你"：一个候选对要**�
 
 RFC 8445 只保留这种 regular nomination；RFC 5245 的 aggressive nomination（每对检查都带 USE-CANDIDATE）已废弃（§4、§8.1.1）。
 
-**保活**（§11）：selected pair 上没有其他流量时，端点必须发保活报文维持 NAT 映射；full 实现之间用 STUN Binding Indication，间隔 Tr 建议 15 s、不得更短。
+**保活**（§11）：selected pair 上没有其他流量时，端点必须发保活报文维持 NAT 映射；full 实现之间用 STUN Binding Indication，间隔 Tr 建议 15 s、不得更短。会话中另需持续验证对端仍在接收——consent freshness 机制同样以 STUN Binding 承载（RFC 7675）。
 
 ## 6. 一次完整选路
 
