@@ -64,7 +64,7 @@ a=fingerprint:sha-256 19:E2:1C:3B:4B:9F:81:14:1F:...(每字节两位大写十六
 
 ## 4. 与相邻层的接口
 
-- **同端口解复用**。DTLS 与 STUN 检查、（媒体面的）RTP 共用 selected pair 的地址与端口，按首字节分流：0–3 为 STUN、20–63 为 DTLS、128–191 为 RTP/RTCP（RFC 5764 §5.1.2；含 TURN 区间的完整规则见 RFC 7983）。
+- **同端口解复用**。DTLS 与 STUN 检查、（媒体面的）RTP 共用 selected pair 的地址与端口，按首字节分流：0–3 为 STUN、20–63 为 DTLS、64–79 为 TURN ChannelData、128–191 为 RTP/RTCP，未匹配任何区间的包必须丢弃（完整规则见 RFC 7983，它更新了 RFC 5764 §5.1.2 的三区间划分，加入 TURN 区间并把 STUN 区间放宽到 0–3）。
 - **上层的 SCTP**。DataChannel 的 SCTP 作为 DTLS 的应用数据承载（SCTP over DTLS，RFC 8831、RFC 8261）——握手完成后，中间网络与 TURN 服务器看到的只是 DTLS 密文。
 - **媒体面一句带过**。若使用音视频，SRTP 的密钥在 DTLS 握手中经 `use_srtp` 扩展协商派生（RFC 5764 §4.1）；本文聚焦数据面，不展开。
 
