@@ -108,6 +108,6 @@ Binding 响应里，"你的公网映射"放在 XOR-MAPPED-ADDRESS 属性（§14.
 
 - TURN：中继地址的分配、permission 与 channel——[TURN：中继的分配与转发](./turn.md)（RFC 8656）。
 - NAT 行为的主动探测（映射/过滤行为测试）：RFC 5780。
-- 选路完成后的加密建立（DTLS）：RFC 8445 之上的下一层。
+- 选路完成后的加密建立（DTLS）：[DTLS：加密建立与身份锚定](./dtls.md)。
 
 [主题入口](./README.md) · [资源页](./resources.md)
