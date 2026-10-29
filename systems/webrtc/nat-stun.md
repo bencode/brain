@@ -33,7 +33,7 @@ RFC 4787 把 NAT 行为拆成两个互相独立的维度（§4.1、§5）。
 | Address-Dependent Filtering（ADF） | 只有曾发往其 IP 的主机可回包（不限端口） |
 | Address and Port-Dependent Filtering（APDF） | 只有曾发往其 `(IP, 端口)` 的端点可回包 |
 
-RFC 4787 特别指出（§4.1）：映射行为与安全性无关，安全性完全由过滤行为决定——这是两轴必须分开看的原因。BCP 要求 NAT 实现应为 EIM（REQ-1），但移动网络与运营商级 NAT（CGNAT）实践中经常不满足。
+RFC 4787 特别指出（§4.1）：映射行为与安全性无关，安全性完全由过滤行为决定——这是两轴必须分开看的原因。BCP 要求 NAT 必须实现 EIM（REQ-1），但移动网络与运营商级 NAT（CGNAT）实践中经常不满足。
 
 **旧词汇的对照**。传统"四型 NAT"（full cone / restricted cone / port-restricted cone / symmetric）来自 RFC 3489 时代，把两个轴搅在一起：cone 系指 EIM 映射配不同严格度的过滤，symmetric 指 ADM/APDM 映射。工程口语仍常用这些词，但分析问题时拆成两轴才准确。
 
@@ -42,7 +42,7 @@ RFC 4787 特别指出（§4.1）：映射行为与安全性无关，安全性完
 - **映射行为决定 srflx 的价值**。EIM 下，向 STUN 服务器问到的映射对任何目标都有效，srflx 候选可用。ADM/APDM（symmetric）下，向 STUN 问到的映射只对 STUN 有效——SDP 里通告的 srflx 地址，对端朝它发包会被当作无关流量丢弃，srflx 全部作废。
 - **prflx 正是对策**。本端向对端发检查时，symmetric NAT 为这个目标新建真实映射；对端收到检查报文，从这个报文的实际源地址学到真实可用的映射，登记为 prflx 候选（RFC 8445 §7.3.1.3）。这就是 ICE 不需要预先探测 NAT 类型也能工作的原因：它用真实流量问路，而不是分类后预测。
 - **过滤行为一般不构成障碍**。ICE 检查是双向主动发起的"应邀"流量：要收对端的检查，先向对端发过检查即可。ADF 在此自然满足；APDF 也因两端互发而打通。
-- **硬墙是双端皆 symmetric**。两端都无法向对方通告可复用的地址，prflx 也无从建立——只能中继（TURN，另行成篇）。RFC 4787 §5 的论述与此一致：APDF 下"连通将需要 UDP 中继"。
+- **硬墙是双端皆 symmetric**。两端都无法向对方通告可复用的地址，prflx 也无从建立——只能中继（[TURN：中继的分配与转发](./turn.md)）。RFC 4787 §5 的论述与此一致：APDF 下"连通将需要 UDP 中继"。
 
 两个实践观察：同 NAT 内两端用公网映射互访（hairpin，§6）常失败，但 ICE 的 host 候选直接内网互通，不受影响；CGNAT 大量见于移动网络，行为常接近 symmetric。
 
@@ -106,7 +106,7 @@ Binding 响应里，"你的公网映射"放在 XOR-MAPPED-ADDRESS 属性（§14.
 
 ## 6. 范围之外
 
-- TURN：中继地址的分配、permission 与 channel——RFC 8656，另行成篇。
+- TURN：中继地址的分配、permission 与 channel——[TURN：中继的分配与转发](./turn.md)（RFC 8656）。
 - NAT 行为的主动探测（映射/过滤行为测试）：RFC 5780。
 - 选路完成后的加密建立（DTLS）：RFC 8445 之上的下一层。
 
