@@ -1,55 +1,46 @@
 # Brain
 
-这里记录我对知识的当前理解：从工程实践中的问题出发，重新组织概念、原理、实现与它们之间的关系。
+公开知识文档仓库，使用 [Gamma Reader](https://github.com/bencode/gamma-reader) 阅读。
 
-每个专题说明它解决什么问题、依赖哪些概念、结论在什么条件下成立，并用代码、推导或实验提供依据。工作项目作为案例，引用的规范、论文和源码保留出处与版本。
+在线阅读：<https://brain.qijun.io>。
 
-阅读地址：<https://brain.qijun.io>。
+## 内容
 
-## 首批专题
+- [WebRTC 资源](./systems/webrtc/resources.md)：规范、源码、示例、测试与 API 参考入口。
 
-| 专题 | 重写范围 | 状态 |
-| --- | --- | --- |
-| [WebRTC 资源](./systems/webrtc/resources.md) | 核心规范、官方实现与验证资料 | 资源页已建立；作品待创作 |
-| Agent 系统 | 运行循环、上下文、工具调用、状态持久化与执行环境 | 待重写 |
+## 文件约定
 
-目录随实际内容形成，跨专题的依赖用相对链接连接。
-
-## 内容约定
-
-- 区分规范或原作者的陈述、可复现的观察与个人解读；尚未验证的判断明确标注。
-- 涉及源码或产品行为时注明版本；后续修订以新的证据为依据。
-- AI 辅助调研用于查找与整理材料，正文需要核对来源、推导和案例。
-- `brain2` 是私有工作区，保留讨论、调研、资源整理、实验和原始笔记；这些资料继续在 `brain2` 维护。
-- 本仓库是公开作品库。原始材料经过内容取舍、事实核验和结构重写后，再以适合公众阅读的作品形式收录。
-- 每个已建立的主题维护独立的 `resources.md`，优先收录官方规范、官方实现和一手材料；可信参考资料明确标注其性质与用途。
-- 公开内容经过取舍，以明确的问题、独立的论证和核验依据决定是否收录，不按资料数量或预设篇数扩写文章。
-
-内容以 Markdown 保存，使用 [Gamma Reader](https://github.com/bencode/gamma-reader) 阅读。
+- 文档采用 Markdown，仓库内文档之间使用相对链接。
+- 每个主题的资源页命名为 `resources.md`，记录来源、发布或维护方、用途与边界。
+- 本仓库保存公开文档；讨论、调研和原始笔记保留在私有仓库 `brain2`。
 
 ## 本地预览
 
-安装 Node.js 24+ 和 Git，在本仓库的工作目录运行：
+需要 Node.js 24+ 和 Git。在仓库工作目录运行：
 
 ```sh
 npm start
 ```
 
-打开 <http://127.0.0.1:3306>。默认通过 `npx` 运行发布版 Gamma Reader，不需要先运行 `npm install`。设置 `GAMMA_READER_DIR` 时，改为启动该本地仓库的构建产物；请先在 Gamma Reader 仓库运行 `pnpm build`。
+默认地址为 <http://127.0.0.1:3306>，可通过 `PORT` 修改端口。
 
-阅读器读取当前工作目录，包括未提交的文章和新文件。编辑本仓库的 Markdown 后，刷新页面即可读取磁盘上的最新内容；页面保持打开时，也会每分钟自动同步一次。
+阅读器读取当前工作目录，包括未提交的文档。修改文件后刷新页面即可预览；页面保持打开时，每分钟自动同步一次。
 
-在阅读器中编辑时，文档上的 **Save** 保存到浏览器；文件列表上方的 **Save** 才会写回本地文件。写回不会自动提交或推送。
+在阅读器中编辑时，文档上的 **Save** 保存到浏览器，文件列表上方的 **Save** 写回本地文件。写回不会自动提交或推送。
 
-本地运行数据保存在已忽略的 `.gamma-reader/`。启动时从当前目录的 `.env` 加载配置；Git worktree 可以通过符号链接共享同一份私有 `.env`。修改配置后重新运行 `npm start`。
+## 本地配置
+
+启动时加载工作目录中的 `.env`。Git worktree 可通过符号链接共享同一份本地配置；修改配置后需要重启。
 
 | 环境变量 | 用途 |
 | --- | --- |
-| `GAMMA_READER_DIR` | 可选，本地 Gamma Reader 仓库的绝对路径；用于选择与生产一致的构建版本 |
-| `GLM_API_KEY` | GLM-5.3 聊天和 GLM-5.3-Flash 视觉能力 |
-| `QWEN_TOKEN_PLAN_CN_API_KEY` | 阿里云 Token Plan 的 DeepSeek、Qwen 模型 |
+| `GAMMA_READER_DIR` | 可选，本地 Gamma Reader 仓库的绝对路径；先在该仓库运行 `pnpm build` |
+| `GLM_API_KEY` | GLM 服务端凭据 |
+| `QWEN_TOKEN_PLAN_CN_API_KEY` | 阿里云 Token Plan 服务端凭据 |
 | `TAVILY_API_KEY` | 联网搜索与网页提取 |
 | `GAMMA_DAILY_TOKENS` | 每个网络的每日 Token 额度 |
 | `GAMMA_TOTAL_DAILY_TOKENS` | 本地实例的每日总 Token 额度 |
 
-预览文章不需要 API key。启用的模型列表由所运行的 Gamma Reader 版本决定；密钥和本地运行数据不提交到 Git。本地与生产分别记录用量，Tavily 共用该 key 所属账户的 credits。
+设置 `GAMMA_READER_DIR` 时使用本地构建，否则通过 `npx` 运行 `gamma-reader@latest`。启用的模型列表由所运行的 Gamma Reader 版本决定，预览文档不需要 API key。
+
+本地运行数据默认保存在 `.gamma-reader/`。该目录和 `.env` 均已加入 Git 忽略规则；本地与生产分别记录用量。
